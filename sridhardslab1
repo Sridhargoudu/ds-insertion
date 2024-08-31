@@ -1,0 +1,252 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+struct node
+{
+int data;
+struct node *next;
+}*head,*newn,*trav,*temp;
+void create_list()
+{
+int value;
+temp=head;
+newn=(struct node *)malloc(sizeof (struct node));
+printf("\nenter the value to be inserted");
+scanf("%d",&value);
+newn->data=value;
+if(head==NULL)
+{
+head=newn;
+head->next=NULL;
+}
+else
+{
+while(temp->next!=NULL)
+{
+temp=temp->next;
+}
+temp->next=newn;
+newn->next=NULL;
+}
+}
+void insert_at_begning(int value)
+{
+newn=(struct node*)malloc(sizeof(struct node));
+newn->data=value;
+if(head==NULL)
+{
+head=newn;
+head->next=NULL;
+}
+else
+{
+newn->next=head;
+head=newn;
+}
+}
+void insert_at_end(int value)
+{
+temp=head;
+newn=(struct node *)malloc(sizeof (struct node));
+newn->data=value;
+if(head==NULL)
+{
+head=newn;
+head->next=NULL;
+}
+else
+{
+while(temp->next!=NULL)
+{
+temp=temp->next;
+}
+temp->next=newn;
+newn->next=NULL;
+}
+}
+void insert_at_middle()
+{
+int loc,value;
+printf("\n after which value you want to insert : ");
+scanf("%d",&loc);
+printf("\nenter the value to be inserted");
+scanf("%d",&value);
+newn=(struct node*)malloc(sizeof(struct node));
+newn->data=value;
+temp=head;
+if(head==NULL)
+{
+head=newn;
+head->next=NULL;
+}
+else
+{
+while(temp->data!=loc)
+{
+temp=temp->next;
+}
+newn->next=temp->next;
+temp->next=newn;
+}
+}
+void delete_from_middle()
+{
+struct node *var;
+int value;
+temp=head;
+printf("\nenter the data that you want to delete from the list shown above");
+scanf("%d",&value);
+if(temp==NULL)
+{
+printf("\nSORRY...there is no %d element",value);
+}
+else
+{
+while(temp->data!=value)
+{
+var=temp;
+temp=temp->next;
+}
+var->next=temp->next;
+temp->next=NULL;
+free(temp);
+}
+}
+void delete_from_front()
+{
+temp=head;
+if(head==NULL)
+{
+printf("\nno elements for deletion in the list\n");
+}
+else
+{
+head=temp->next;
+temp->next=NULL;
+free(temp);
+}
+}
+void delete_from_end()
+{
+struct node *var;
+temp=head;
+if(head==NULL)
+{
+printf("\nno elemts in the list");
+}
+else
+{
+while(temp->next!=NULL)
+{
+var=temp;
+temp=temp->next;
+}
+var->next=NULL;
+free(temp);
+}
+}
+void display()
+{
+temp=head;
+if(temp==NULL)
+{
+printf("\nList is Empty\n");
+}
+else
+{
+while(temp!=NULL)
+{
+printf(" -> %d ",temp->data);
+temp=temp->next;
+}
+printf("\n");
+}
+}
+void main()
+{
+int ch=0;
+char ch1;
+head=NULL;
+printf("\n1.create linked list");
+printf("\n2.insertion at begning of linked list");
+printf("\n3.insertion at the end of linked list");
+printf("\n4.insertion at the middle where you want");
+printf("\n5.deletion from the front of linked list");
+printf("\n6.deletion from the end of linked list ");
+printf("\n7.deletion of the middle data that you want");
+printf("\n8.display the linked list");
+printf("\n9.exit\n");
+while(1)
+{
+printf("\nenter the choice of operation to perform on linked list");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+{
+do{
+create_list();
+display();
+printf("do you want to create list ,y / n");
+getchar();
+scanf("%c",&ch1);
+}while(ch1=='y'||ch1=='Y');
+break;
+}
+case 2:
+{
+int value;
+printf("\nenter the value to be inserted");
+scanf("%d",&value);
+insert_at_begning(value);
+display();
+break;
+}
+case 3:
+{
+int value;
+printf("\nenter value to be inserted");
+scanf("%d",&value);
+insert_at_end(value);
+display();
+break;
+}
+case 4:
+{
+insert_at_middle();
+display();
+break;
+}
+case 5:
+{
+delete_from_front();
+display();
+break;
+}
+case 6:
+{
+delete_from_end();
+display();
+break;
+}
+case 7:
+{
+display();
+delete_from_middle();
+display();
+break;
+}
+case 8:
+{
+display();
+break;
+}
+case 9:
+{
+exit(1);
+}
+default:printf("\n****Please enter correct choice****\n");
+}
+getch();
+}
+}
